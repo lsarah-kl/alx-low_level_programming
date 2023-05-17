@@ -1,44 +1,53 @@
-#include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "main.h"
+
 /**
- * str_concat - gets the ends of input and add together size
- * @s1: input one to concates		
- * @s2: input two to concats
- * Return: concates of s1 and s2
+ * str_concat - Concatenates two strings.
+ * @s1: The first str to concate
+ * @s2: The second str to concate
+ *
+ * Return: Pointer to a new allocated space in memory
  */
-		
 char *str_concat(char *s1, char *s2)
 {
-	char *conct;
-	int i, ci;
-		
 	if (s1 == NULL)
 		s1 = "";
 	if (s2 == NULL)
 		s2 = "";
-		
-		i = ci = 0;
-	while (s1[i] != '\0')
-		i++;
-	while (s2[ci] != '\0')
-		ci++;
-	conct = malloc(sizeof(char) * (i + ci + 1));
-		
-	if (conct == NULL)
-		return (NULL);
-		
-	i = ci = 0;
-	while (s1[i] != '\0')
-	{
-		conct[i] = s1[i];
-		i++;
+
+
+	size_t len1 = strlen(s1);
+	size_t len2 = strlen(s2);
+	
+	char *result = (char *)malloc((len1 + len2 + 1) * sizeof(char));
+	if (result == NULL) {
+		return NULL;
 	}
-		
-	while (s2[ci] != '\0')
-	{
-		conct[i] = s2[ci];
-		i++, ci++;
+
+	strcpy(result, s1);
+
+	strcat(result, s2);
+
+	return result;
+}
+
+/**
+ * main - Entry point
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+	char str1[] = " ";
+	char str2[] = "";
+	char *concatenated = str_concat(str1, str2);
+	if (concatenated != NULL) {
+		printf("Concatenated string: %s\n", concatenated);
+		free(concatenated);  
+	} else {
+		printf("Failed to concatenate strings.\n");
 	}
-	conct[i] = '\0';
-	return (conct);
+	return 0;
 }
